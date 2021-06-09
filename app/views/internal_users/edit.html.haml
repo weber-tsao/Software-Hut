@@ -1,0 +1,9 @@
+-# a form for edit internal uesr related stuff
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings Editing user
+
+    = render 'form'
+
+    %div.editButton
+      %a= link_to 'Back', internal_users_path, class: "btn btn-default"

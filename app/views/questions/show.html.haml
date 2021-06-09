@@ -1,0 +1,36 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Question: 
+    
+    %p= @question.question_text
+
+    %br
+    %p
+      %b ID:
+      = @question.id
+    %p
+      %b Question Set:
+      = @question.question_set.name
+    %p
+      %b Question Set ID:
+      = @question.question_set_id
+    %p
+      %b Date Created:
+      = @question.created_at
+
+    %br
+      %table.main_table
+        %thead
+          %tr
+            %th 
+            %th Description
+            %th Additional Actions 
+        %tbody
+          - @answer.each do |ans|
+            %tr
+              %td= ans.id
+              %td= ans.answer_text
+              %td
+
+    %br
+    = link_to 'Back', questions_path

@@ -1,0 +1,39 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Listing Users
+
+    %p there are #{@users.size} users.
+
+    = simple_form_for :search, url: search_internal_users_path, method: :post do |f|
+      = f.input :email
+      = f.submit 'Search by Email', class: "btn btn-dark"
+
+      = link_to 'Reset', view_accounts_path, class: "btn btn-outline-primary"
+
+    %br
+    %br
+
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th ID
+          %th Email
+          %th Account Type
+          %th Active?
+          %th Date Created
+          %th 
+          %th
+         
+      %tbody
+        - @users.each do |user| 
+          %tr
+            %td= user.id
+            %td= user.email
+            %td= user.account_type
+            %td= user.active
+            %td= user.created_at
+            %td= link_to "show_assignments", show_assignments_url(:account => user), html_options = {class: "btn btn-outline-primary"}
+            %td deactivate button
+
+    %br
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

@@ -1,0 +1,61 @@
+-#A page for view task page
+%div
+  %div
+    #main-container.container
+      .jumbotron.mb-3
+        %h1.settings Tasks
+        - if current_user.vendor.approved == false    #A progress bar will appear if the user is unapproved
+          -if @InitialRatio <= 0
+            %h1.bar_Title Initial task Completetion
+            %p.ratio0 0% Complete
+          -elsif @InitialRatio < 0.3 && @InitialRatio > 0
+            %h1.bar_Title Initial task Completetion
+            .progress
+              .progress-bar.bg-danger.progress-bar-striped.progress-bar-animated{:style => "width: #{@InitialRatio*100}%"}
+            %p.ratio0= "#{(@InitialRatio*100).round(1)}" + "% Complete"
+          -elsif @InitialRatio >= 0.3 && @InitialRatio < 0.8
+            %h1.bar_Title Initial task Completetion
+            .progress
+              .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated{:style => "width: #{@InitialRatio*100}%"}
+            %p.ratio0= "#{(@InitialRatio*100).round(1)}" + "% Complete"
+          -elsif @InitialRatio >= 0.8
+            %h1.bar_Title Initial task Completetion
+            .progress
+              .progress-bar.bg-success.progress-bar-striped.progress-bar-animated{:style => "width: #{@InitialRatio*100}%"}
+            %p.ratio0= "#{(@InitialRatio*100).round(1)}" + "% Complete"
+
+        %table.table.table-striped.table-bordered
+          %thead
+            %tr
+              %th Action Required
+              %th Link
+              %th Done
+              %th Due Date
+
+          %tbody
+            - current_user.vendor.task_allocations.each do |task_allocation|
+              -@task = Task.find(task_allocation.task_id)
+              = simple_form_for task_allocation do |f|
+                -if current_user.vendor.approved == true    #if users is approved then this page will only show non initial task
+                  -if @task.initial_task == false
+                    %tr
+                      %td= @task.task_name
+                      %td= link_to image_tag("arrow-up-right-square-fill.svg"), @task.link
+                      -if @task.needs_approval == true
+                        %td= f.check_box :completed, { onchange: "this.form.submit();"}
+                      -else
+                        %td= f.check_box :completed, disabled: true
+                      %td= @task.deadline
+                -elsif current_user.vendor.approved == false    #if users is unapproved then this page will only show initial task
+                  -if @task.initial_task == true
+                    %tr
+                      %td= @task.task_name
+                      %td= link_to image_tag("arrow-up-right-square-fill.svg"), @task.link
+                      -if @task.needs_approval == true
+                        %td= f.check_box :completed, { onchange: "this.form.submit();"}
+                      -else
+                        %td= f.check_box :completed, disabled: true
+                      %td= @task.deadline
+
+        %div                   
+          

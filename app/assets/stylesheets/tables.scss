@@ -1,0 +1,36 @@
+.main_table{
+  border: 1px solid black;
+  width: 100%;
+  text-align: center;
+  border-right: 0px solid black;
+  th{
+    border:1px solid black;
+    padding: 5px 5px 5px 5px;
+    background-color: rgb(192, 192, 192);
+  }
+  td{
+    border: 1px solid black;
+  }
+  .no_border{
+    border: 0px solid black;
+  }
+}
+
+.performance_table{
+  border: 1px solid black;
+  width: 100%;
+  text-align: center;
+  th{
+    border:1px solid black;
+    padding: 5px 5px 5px 5px;
+    background-color: rgb(192, 192, 192);
+  }
+  td{
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+  }
+}
+
+.hid{
+  display: none;
+}

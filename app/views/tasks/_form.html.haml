@@ -1,0 +1,19 @@
+-# frozen_string_literal: true
+-# a simple form for create new task page
+= simple_form_for(@task) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :task_type, as: :select, collection: ['File upload', 'Questionnaire', 'Other'], input_html: { id: 'give-task-link' }
+    = f.input :task_name
+    = f.input :link, input_html: { id: 'task-link' }#will auto input url if task type is 'file upload' or 'Questionnaire'
+    = f.input :file_title
+    = f.input :deadline
+    = f.input :needs_approval, input_html: { id: 'needs-approval-btn' }#if a task is 'file upload' or 'qusetion' this button will be disable
+    = f.input :initial_task
+    = f.association :vendors, input_html: { class: 'select2' }
+   
+  %br
+  .form-actions.submit_button
+    = f.button :submit, class: "btn btn-dark"

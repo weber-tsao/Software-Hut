@@ -1,0 +1,42 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Assignments for account : #{@account.email}
+    - @assignments = VendorAssignment.where(user_id: @account.id)
+    - if @account.account_type == "vendor"
+      - @vendor = Vendor.where(user_id: @account.id)
+      - @assignments = VendorAssignment.where(vendor_id: @vendor.ids)
+    
+    
+    .container
+      -if @account.account_type == "internal"
+        %h2 Vendors
+        %br
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th Email
+              %th Vendor Name
+              %th Unassign Vendor
+          
+          %tbody
+            - @assignments.each do |assignment| 
+              %tr
+                %td= assignment.vendor.user.email
+                %td= assignment.vendor.name
+                %td= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' }
+      -else
+        %h2 Staff
+        %br
+        %table.table.table-striped.table-bordered
+          %thead
+            %tr
+              %th Email
+          
+          %tbody
+            - @assignments.each do |assignment| 
+              %tr
+                %td= assignment.user.email
+        
+
+    %br
+    = link_to "View Accounts", view_accounts_url, html_options = {class: "btn btn-dark"}

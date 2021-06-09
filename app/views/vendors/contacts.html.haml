@@ -1,0 +1,38 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Contacts
+
+    %br
+    %br
+
+    %h2 Assigned Staff
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Email
+
+      %tbody
+        - if @assignments.any? 
+          - @assignments.each do |assignment|
+            - @assigned_user = User.find(assignment.user_id)
+            %tr
+              %td= @assigned_user.email 
+        - else 
+          %tr
+            %td 
+      
+    %br
+    %h2 System Administrators
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Email
+          
+      %tbody
+        %tr
+          %td= "internal1@gmail.com"
+        %tr
+          %td= "internal2@gmail.com"
+    
+    %br
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

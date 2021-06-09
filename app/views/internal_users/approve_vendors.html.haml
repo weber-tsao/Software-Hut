@@ -1,0 +1,40 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Approve Vendors
+
+    %p there are #{@vendors.size} vendors awaiting approval.
+
+    %br
+
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th ID
+          %th Company Name
+          %th Company Number 
+          %th Approved
+          %th Service Type
+          %th Jurisdiction
+          %th 
+          %th
+
+
+
+      %tbody
+        - @vendors.each do |vendor|
+          %tr
+            %td= vendor.name
+            %td= vendor.id
+            %td= vendor.company_number
+            %td= vendor.approved
+            %td= vendor.service_type 
+            %td= vendor.jurisdiction 
+            %td 
+              =form_for vendor, :method => :put do |f|
+                =f.hidden_field :approved, :value => true 
+                =f.submit "Approve", class: "btn btn-outline-primary"
+            %td
+              %form{:action => "vendors"}
+                %input{:name => "More Info", :type => "submit", class: "btn btn-outline-primary"}
+
+    %br

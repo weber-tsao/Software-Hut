@@ -1,0 +1,11 @@
+-#A page for create new task
+#main-container.container
+    .jumbotron.mb-3
+        %h1.settings Create A Task
+
+        = render 'form'
+
+        - if user_signed_in? && current_user.account_type == "vendor"
+            = link_to 'Back', tasks_path, class: "btn btn-default"
+        - elsif user_signed_in? && current_user.account_type == "internal"
+            = link_to 'Back', :root, class: "btn btn-default"

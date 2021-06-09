@@ -1,0 +1,9 @@
+-#Edit vendor user's personal info
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings Editing personal info
+
+    = render 'form'
+
+    %div.editButton
+      %a= link_to 'Back', vendor_setting_path , class: "btn btn-default"

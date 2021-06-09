@@ -1,0 +1,29 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 View Questions
+
+    %br
+
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th Question ID
+          %th Question
+          %th Question Set Name 
+          %th Question Set ID
+          %th Date Created
+          %th 
+          
+    
+      %tbody
+        - @questions.each do |question|
+          %tr
+            %td= question.id
+            %td= question.question_text
+            %td= question.question_set.name
+            %td= question.question_set_id
+            %td= question.created_at
+            %td= link_to "More Info", question
+
+    %br
+    = link_to 'Home', root_path

@@ -1,0 +1,6 @@
+%h1 Assigning Vendor: #{@vendor.name}
+= puts @vendor.name
+= simple_form_for(@vendor_assignment) do |f|
+  = f.association :user, input_html: { class: 'select2' }, collection: User.where(account_type: "internal"), label_method: :email
+  = f.hidden_field :vendor_id, value: @vendor.id
+  = f.button :submit

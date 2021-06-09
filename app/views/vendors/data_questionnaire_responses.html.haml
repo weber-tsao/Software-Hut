@@ -1,0 +1,25 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings Viewing questionnaire responses for #{@vendor_name}
+
+    %br
+
+    %div.editButton
+      %a= link_to "Triage", triage_questionnaire_responses_path(:vendor => @vendor), html_options = {class: "btn btn-default blackBoarder"}
+      %a= link_to "Data Protection", data_questionnaire_responses_path(:vendor => @vendor), html_options = {class: "btn btn-default blackBoarder"}
+
+    %br
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th Question
+            %th Response
+        %tbody
+          - @vendor_responses.each do |vr|
+            %tr
+              %td= vr.question.question_text
+              %td= vr.answer_option.answer_text
+
+    %br
+
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

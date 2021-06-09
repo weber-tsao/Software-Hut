@@ -1,0 +1,23 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Vendor Summary
+
+    %p there are #{@vendors.size} vendors.
+
+    %br
+    - @pending_vendors = @vendors.where(approved:false)
+    %p Number of pending vendors: #{@pending_vendors.size}
+    - @vendors_in_screening = 0
+    - @in_screening = false
+    - @pending_vendors.each do |vendor|
+      - @in_screening= false
+      - vendor.task_allocations.each do |task_allocation|
+        -if task_allocation.completed == false and task_allocation.task.initial_task == true 
+          -@in_screening = true
+      -if @in_screening = true 
+        - @vendors_in_screening +=1
+
+    %p there are #{@vendors_in_screening} vendors in screening
+    %p there are #{@pending_vendors.size - @vendors_in_screening} vendors awaiting approval
+    %br
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

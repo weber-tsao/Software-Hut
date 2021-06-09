@@ -1,0 +1,15 @@
+-# A vendor user's setting page
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings Settings
+
+    %div
+      %p.text_title Name:
+      %p.text_display= @vendor.name
+    %div  
+      %p.text_title Contact number:
+      %p.text_display= @vendor.contact_number
+
+    %div.editButton
+      %a= link_to 'Edit', edit_vendor_path(@vendor), class: "btn btn-dark"
+

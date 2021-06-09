@@ -1,0 +1,23 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Edit Performance
+    = simple_form_for(@performance) do |f|
+      .form-inputs
+        = f.input :KPI1
+        = f.input :KPI2
+        = f.input :KPI3
+        = f.input :KPI4
+        = f.input :KPI5
+        = f.input :KPI6
+        = f.input :initial_credit
+        = f.input :credit_threshold
+        = f.input :current_credit
+        = f.input :initial_risk
+        = f.input :current_risk
+
+      .form-actions
+        = f.button :submit, class: "btn btn-dark"
+  
+  %br
+  = link_to 'Home', root_path, html_options = {class: "btn btn-dark"} #change to back to more info?
+  

@@ -1,0 +1,25 @@
+%head
+  = javascript_include_tag "questions"
+
+#main-container.container
+  .jumbotron.mb-3
+    %h1{style: "text-align: center;"} Registration
+
+    %div{style: "text-align: right;"}
+      %span{style: "display: inline;"}
+        %button{onclick: "mySaveFunction()", type: "save", value: "Save"} Save Answers
+        %button{onclick: "mySubmitFunction()", type: "submit", value: "Submit"} Save and Submit
+    %div{style: "color: green; float: right"}
+      %p#show
+
+    - @questions.each do |question|
+      %div{id: "#{dom_id(question)}"}
+        %div{style: "font-size: 24px; padding-top: 10px;"} Question #{question.id}
+        %div
+          %div{style: "float: left; padding-bottom: 10px; width: 55%;"}= question.question_text
+          %div{style: "float: right; padding-left: 30px; padding-bottom: 40px; width: 45%; font-weight: bold;"} Additional Actions/Instructions :
+      - choices = [question.created_at, question.created_at]
+      - choices.each do |c|
+        %p{style: "margin-top: 0px;"}
+          = radio_button_tag "guess_#{question.id}", c, checked = c == question.created_at, disabled: false
+          = label_tag "guess_#{question.id}_#{c}", c

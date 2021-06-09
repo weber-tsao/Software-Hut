@@ -1,0 +1,42 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Listing Vendors
+
+    %p there are #{@vendors.size} vendors.
+
+    = simple_form_for :search, url: search_vendors_path, method: :post do |f|  
+      = f.input :query  
+      
+      = f.submit 'Search by Name', class: "btn btn-dark"
+      = link_to 'Reset', vendors_path, html_options = {class: "btn btn-outline-primary"}
+
+    %br
+
+    %br
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th ID
+          %th Company Name
+          %th Company Number 
+          %th Approved
+          %th Service Type
+          %th Jurisdiction
+          %th Average KPI
+          %th 
+          
+      %tbody
+        - @vendors.each do |vendor|
+          - avg_KPI = ((vendor.performance.KPI1 + vendor.performance.KPI2 + vendor.performance.KPI3 + vendor.performance.KPI4 + vendor.performance.KPI5 + vendor.performance.KPI6)/6).round(2)
+          %tr
+            %td= vendor.id
+            %td= vendor.name
+            %td= vendor.company_number
+            %td= vendor.approved
+            %td= vendor.service_type 
+            %td= vendor.jurisdiction 
+            %td= avg_KPI
+            %td= link_to "More Info", vendor, html_options = {class: "btn btn-outline-primary"}
+
+    %br
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

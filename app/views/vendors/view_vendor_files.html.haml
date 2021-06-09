@@ -1,0 +1,34 @@
+-#A page for internal users to view vendor's file
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings View #{@vendor_name}'s Files
+
+    %table.main_table
+      %thead
+        %tr
+          %th Title
+          %th Filename
+          %th Download File
+          
+      %tbody
+        - @tasks.each do |task|
+          - @task_allocations.each do |task_allocation|
+            -if task.id == task_allocation.task_id and task.task_type == "File upload" and task_allocation.completed == true
+              %tr
+                %td= task.task_name
+
+                - @upload_files.each do |upload_file|  
+                  = simple_form_for upload_file do |f|
+                    -if upload_file.task_allocation_id == task_allocation.id
+                      %td= upload_file.attachment_url[34..60]
+                      %td.button-border
+                        %a{:download => upload_file.attachment_url[34..], :href => upload_file.attachment_url}
+                          %button{:type => "button", class: "btn btn-light"} Download
+                
+                = simple_form_for task_allocation do |f|
+                  -if task.id == task_allocation.task_id
+                    %tr
+                      %td.hid= f.check_box :completed
+                      %td.hid= f.button :submit
+%br
+%div

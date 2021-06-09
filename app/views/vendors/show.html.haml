@@ -1,0 +1,97 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Vendor Information
+    %br
+    .container
+      .row
+        .col-sm
+          %br
+          %p
+            %b Name:
+            = @vendor.name
+          %p
+            %b Description:
+            = @vendor.company_number
+          %p
+            %b Legal Address:
+            = @vendor.legal_address
+          %p
+            %b Jurisdiction:
+            = @vendor.jurisdiction
+          %p
+            %b Key Contact:
+            = @vendor.contact_number
+          %p
+            %b Company Director:
+            = @vendor.director
+          %p
+            %b Approved:
+            = @vendor.approved
+        
+        .col-sm
+          %h2 Performance
+          %br
+          .container
+            .row
+              .col-sm
+                %table.table.table-striped.table-bordered
+                  %tr
+                    %th KPI1:
+                    %td= @vendor.performance.KPI1 
+                  %tr
+                    %th KPI2:
+                    %td= @vendor.performance.KPI2 
+                  %tr
+                    %th KPI3:
+                    %td= @vendor.performance.KPI3
+                  %tr
+                    %th KPI4:
+                    %td= @vendor.performance.KPI4
+                  %tr
+                    %th KPI5:
+                    %td= @vendor.performance.KPI5
+                  %tr
+                    %th KPI6:
+                    %td= @vendor.performance.KPI6
+                  %tr
+                    %th Avg KPI:
+                    %td= ((@vendor.performance.KPI1 + @vendor.performance.KPI2 + @vendor.performance.KPI3 + @vendor.performance.KPI4 + @vendor.performance.KPI5 + @vendor.performance.KPI6)/6).round(2)
+
+              .col-sm
+                %table.table.table-striped.table-bordered
+                  %tr 
+                    %th Initial Credit Rating 
+                    %td= @vendor.performance.initial_credit
+                  %tr 
+                    %th Credit Rating Threshold 
+                    %td= @vendor.performance.credit_threshold
+                  %tr 
+                    %th Current Credit Rating 
+                    %td= @vendor.performance.current_credit
+
+                %br
+
+                %table.table.table-striped.table-bordered
+                  %tr 
+                    %th Initial Risk Rating 
+                    %td= @vendor.performance.initial_risk
+                  %tr 
+                    %th Current Risk Rating 
+                    %td= @vendor.performance.current_risk
+
+            %br
+            = link_to "Edit", edit_performance_path(@vendor.performance), html_options = {class: "btn btn-dark"}
+
+    %br
+    =# buttons to other pages
+    =# both: view questionnaire answers
+    = link_to "View Questionnaire Answers", triage_questionnaire_responses_path(:vendor => @vendor), html_options = {class: "btn btn-dark"}
+
+    =# internal: view files, assign vendor to staff
+    - if current_user.account_type == "internal"
+      - puts current_user.account_type
+      = link_to "View Vendor's Files",  view_vendor_files_path(:vendor => @vendor), html_options = {class: "btn btn-dark"} 
+      = link_to "Assign Vendor to Staff", new_vendor_assignment_path(:vendor => @vendor), html_options = {class: "btn btn-dark"}
+    %br
+    %br
+    = link_to 'Back', vendors_path, html_options = {class: "btn btn-dark"}

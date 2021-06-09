@@ -1,0 +1,17 @@
+= simple_form_for(@vendor_response) do |f|
+  = f.error_notification
+
+  - @questionset.each do |question| 
+    %div{id: "#{dom_id(question)}"}
+      %div{style: "font-size: 24px; padding-top: 10px;"} Question #{question.id}
+      %div{style: "float: left; padding-bottom: 10px; width: 55%;"}= question.question_text
+      %div{style: "float: right; padding-left: 30px; padding-bottom: 40px; width: 45%; font-weight: bold;"} Additional Actions/Instructions :
+    .form-inputs
+      - @answer.each do |c|
+        %p{style: "margin-top: 0px;"}
+          = radio_button_tag "guess_#{question.id}", c.answer_text, disabled: false
+          = label_tag "guess_#{question.id}_#{c}", c.answer_text
+
+  %br
+  .form-actions.submit_button
+    = f.button :submit, class: "btn btn-dark"

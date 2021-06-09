@@ -1,0 +1,51 @@
+- content_for :title, "Vendor Management System"
+- if user_signed_in? && current_user.account_type == "vendor" && current_user.active == true# if user login as "Vendor"
+  %main
+    #main-container.container
+      .jumbotron.mb-3
+        %h1.display-5="Welcome, " + current_user.email
+        =# button link to tasks page
+        %form{:action => "tasks"}
+          %input#task_button{:name => "task", :type => "submit"}
+        =# button link to upload files page
+        %form{:action => "upload_files"}
+          %input#upload_button{:name => "upload", :type => "submit"}
+        =# button link to view uploaded files page
+        %form{:action => "view_files"}
+          %input#view_files_button{:name => "view_files", :type => "submit"}
+        =# button link to vendor performance page
+        - @show_vendor_url = "vendors/" + current_user.vendor.id.to_s
+        %form{:action => @show_vendor_url} 
+          %input#performance_button{:name => "performance", :type => "submit"}
+        =# button link to contacts page
+        %form{:action => "contact_us"}
+          %input#contact_button{:name => "contacts", :type => "submit"}
+
+- elsif user_signed_in? && current_user.account_type == "internal" && current_user.active == true#if user login as "Internal user"
+  %main
+    #main-container.container
+      .jumbotron.mb-3
+        %h1.display-5="Welcome, " + current_user.email
+        =# button link to summary page
+        %form{:action => "vendor_summary"}
+          %input#summary_button{:name => "summary", :type => "submit"}
+        =# button link to view all vendors page
+        %form{:action => "vendors", :method => "get"}
+          %input#view_vendors_button{:name => "view_vendors", :type => "submit"}
+        =# button link to approve vendors page
+        %form{:action => "approve_vendors"}
+          %input#approve_vendors_button{:name => "approve_vendors", :type => "submit"}
+        =# button link to view questions page
+        %form{:action => "view_questions"}
+          %input#view_question_button{:name => "view_question", :type => "submit"}
+        =# button link to view all accounts page
+        %form{:action => "view_accounts"}
+          %input#view_accounts_button{:name => "view_accounts", :type => "submit"}
+        =# button link to manage assigned vendors
+        %form{:action => "vendor_assignments"}
+          %input#manage_assigned_vendors_button{:name => "manage_assigned_vendors", :type => "submit"}
+- else
+  %main
+    #main-container.container
+      .jumbotron.mb-3
+        %h1.display-5="You have being suspend, " + current_user.email

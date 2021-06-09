@@ -1,0 +1,49 @@
+#main-container.container
+  .jumbotron.mb-3
+    %h1 Manage Assigned Vendors
+
+    %p You have #{@vendor_assignments.size} vendors assigned
+    %p signed in as user: #{current_user.email}
+    %form{:action => new_task_path}
+      %input{:name => "Create New Task", :value => "New Task", :type => "submit", class: "btn btn-dark"}
+
+    %br
+    %br
+    %div.container-fluid
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th Vendor ID
+            %th Email 
+            %th Name
+            %th
+
+        - @vendor_assignments.each do |assignment| 
+          %tbody
+            %tr
+              %td= assignment.vendor.id
+              %td= assignment.vendor.user.email
+              %td= assignment.vendor.name
+              %td= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' }
+            %tr
+              %td{:colspan => "4"}
+                %table.table.table-bordered.mb-0.table-sm.table-striped
+                  %thead.table-dark
+                    %tr
+                      %th Task Name 
+                      %th Deadline 
+                      %th Initial Task 
+                      %th Completed
+                  - @task_allocations = assignment.vendor.task_allocations
+                  - @task_allocations.each do |allocation|
+                  - @task = allocation.task
+                    %tbody
+                      %tr 
+                        %td= @task.task_name 
+                        %td= @task.deadline 
+                        %td= @task.initial_task
+                        %td= allocation.completed
+      
+
+    %br
+    = link_to 'Home', root_path, html_options = {class: "btn btn-dark"}

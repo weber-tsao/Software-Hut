@@ -1,0 +1,14 @@
+-#Setting page internal users
+#main-container.container
+  .jumbotron.mb-3
+    %h1.settings Settings
+
+    %div
+      %p.text_title Email:
+      %p.text_display= @user.email
+
+    %div.editButton
+      %a= link_to 'Edit', edit_internal_user_path(@user), class: "btn btn-dark"
+
+
+
